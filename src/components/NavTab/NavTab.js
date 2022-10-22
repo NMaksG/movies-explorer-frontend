@@ -1,18 +1,15 @@
 // import { Link } from 'react-router-dom';
 import './NavTab.css';
-import Links from '../../common/Link';
+import Links from '../common/Link';
 
 function NavTab() {
   return (
     <nav className="navtab">
       <ul className="navtab__links">
-        {/* <li><Link className="navtab__link">О проекте</Link></li>
-        <li><Link className="navtab__link">Технологии</Link></li>
-        <li><Link className="navtab__link">Студент</Link></li> */}
         <li><Links
           classN="navtab__link"
           textLink="О проекте"
-          way={""}
+          way={"about-project"}
         /></li>
         <li><Links
           classN="navtab__link"
@@ -22,7 +19,7 @@ function NavTab() {
         <li><Links
           classN="navtab__link"
           textLink="Студент"
-          way={""}
+          way={"about-me"}
         /></li>
       </ul>
     </nav>

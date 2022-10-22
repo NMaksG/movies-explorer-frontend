@@ -1,5 +1,5 @@
 import './Header.css';
-import logoHeader from '../../images/logoHeader.png';
+import logoHeader from '../../images/header-icon.svg';
 import { Route, Switch } from 'react-router-dom';
 import Links from '../common/Link';
 import Button from '../common/Button';

@@ -1,10 +1,10 @@
 import './AboutMe.css';
 import Portfolio from '../Portfolio/Portfolio';
-import foto from '../../../images/Foto.jpg';
+import foto from '../../images/Foto.jpg';
 
 function AboutMe() {
   return (
-    <section className="about-me">
+    <section className="about-me" name="about-me">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__container">
         <h3 className="about-me__name">Максим</h3>
