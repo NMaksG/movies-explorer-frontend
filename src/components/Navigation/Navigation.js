@@ -1,6 +1,6 @@
 // import './.css';
 
-// function () {
+// function Navigation() {
 //   return (
 //     <div className="">
      
@@ -8,4 +8,4 @@
 //   );
 // }
 
-// export default ;
+// export default Navigation;
