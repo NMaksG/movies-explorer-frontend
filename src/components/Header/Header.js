@@ -14,7 +14,7 @@ function Header({ name, onMobileMenuOpen }) {
             <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
           </Link>
         <div className="header__nav header__nav_rigth">
-          <Link className="header__link" to="/signin">
+          <Link className="header__link" to="/signup">
             Регистрация
           </Link>
             <button
@@ -36,6 +36,24 @@ function Header({ name, onMobileMenuOpen }) {
           <HeaderMovies
             onMobileMenuOpen={onMobileMenuOpen}
           />
+        </Route>
+        <Route path="/profile">
+          <Link className="header__link-logo" to="/">
+            <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
+          </Link>
+        </Route>
+        <Route path="/signin">
+          <Link className="header__link-logo" to="/">
+            <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
+          </Link>
+        </Route>
+        <Route path="/signup">
+          <div className="header__container-auth">
+            <Link className="header__link-logo header__link-logo_auth" to="/">
+              <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
+            </Link>
+            <h1 className="header__title">Добро пожаловать!</h1>
+          </div>
         </Route>
       </Switch>
     </header>

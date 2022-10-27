@@ -4,7 +4,7 @@ import '../HeaderMobile/HeaderMobile.css';
 import headerButton from '../../images/header-button.svg';
 import { Link } from 'react-router-dom';
 
-function Navigation({ name, onMobileMenuClose}) {
+function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
 
   function handleMenuClick() {
     onMobileMenuClose();
@@ -16,14 +16,14 @@ function Navigation({ name, onMobileMenuClose}) {
         <Link 
           className={`header__link header__link_movies header${name}__link`}
           to="/movies"
-          onClick={handleMenuClick}
+          onClick={isMenuOpen && handleMenuClick}
         >
           Фильмы
         </Link>
         <Link
           className={`header__link header__link_save-movies header${name}__link`}
           to="/saved-movies"
-          onClick={handleMenuClick}
+          onClick={isMenuOpen && handleMenuClick}
         >
           Сохраненные фильмы
         </Link>

@@ -22,7 +22,11 @@ function HeaderMobile({ isMenuOpen, onMobileMenuClose }) {
         <Link className="header-mobile__link" to="/">
           Главная
         </Link>
-        <Navigation name="-mobile" onMobileMenuClose={onMobileMenuClose} />
+        <Navigation
+          name="-mobile"
+          onMobileMenuClose={onMobileMenuClose}
+          isMenuOpen={isMenuOpen}
+          />
       </div>
     </div>
   );
