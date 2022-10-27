@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HeaderMovies from './HeaderMovies';
 
 
-function Header({ name }) {
+function Header({ name, onMobileMenuOpen }) {
   return (
     <header className={`header header_${name}`}>
       <Switch>
@@ -25,13 +25,17 @@ function Header({ name }) {
             >
               Войти
             </button>
-          </div>
+        </div>
         </Route>
         <Route path="/movies">
-          <HeaderMovies/>
+          <HeaderMovies
+            onMobileMenuOpen={onMobileMenuOpen}
+          />
         </Route>
         <Route path="/saved-movies">
-          <HeaderMovies/>
+          <HeaderMovies
+            onMobileMenuOpen={onMobileMenuOpen}
+          />
         </Route>
       </Switch>
     </header>

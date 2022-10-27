@@ -1,6 +1,6 @@
 import './MoviesCard.css';
 
-function MoviesCard({ movie, iconDelMovie, onCardClick, onCardLike, onCardDelete }) {
+function MoviesCard({ movie, iconDelMovie }) {
   return (
     <li className="elements-item">
       <img
