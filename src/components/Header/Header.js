@@ -1,13 +1,22 @@
 import './Header.css';
 import logoHeader from '../../images/header-icon.svg';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import HeaderMovies from './HeaderMovies';
+import HeaderMobile from '../HeaderMobile/HeaderMobile';
 
+function Header({ onMobileMenuOpen, isMenuOpen, onMobileMenuClose }) {
+  
+  let location = useLocation();
 
-function Header({ name, onMobileMenuOpen }) {
   return (
-    <header className={`header header_${name}`}>
+    <header className={
+      (location.pathname === "/signin"
+      || location.pathname === "/signup")
+      ? "header header_auth"
+      : location.pathname === "/"
+      ? "header header_about"
+      : "header"}>
       <Switch>
         <Route exact path="/">
           <Link className="header__link-logo" to="/">
@@ -34,16 +43,28 @@ function Header({ name, onMobileMenuOpen }) {
           <HeaderMovies
             onMobileMenuOpen={onMobileMenuOpen}
           />
+          <HeaderMobile
+            isMenuOpen={isMenuOpen}
+            onMobileMenuClose={onMobileMenuClose}
+           />
         </Route>
         <Route path="/saved-movies">
           <HeaderMovies
             onMobileMenuOpen={onMobileMenuOpen}
           />
+           <HeaderMobile
+            isMenuOpen={isMenuOpen}
+            onMobileMenuClose={onMobileMenuClose}
+           />
         </Route>
         <Route path="/profile">
           <HeaderMovies
             onMobileMenuOpen={onMobileMenuOpen}
           />
+           <HeaderMobile
+            isMenuOpen={isMenuOpen}
+            onMobileMenuClose={onMobileMenuClose}
+           />
         </Route>
         <Route path="/signin">
           <div className="header__container-auth">

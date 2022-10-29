@@ -1,17 +1,8 @@
 import './Profile.css';
-import Header from '../Header/Header';
-import HeaderMobile from '../HeaderMobile/HeaderMobile';
 
-function Profile({ isMenuOpen, onMobileMenuOpen, onMobileMenuClose }) {
+function Profile() {
   return (
     <>
-      <Header
-        onMobileMenuOpen={onMobileMenuOpen}
-        />
-      <HeaderMobile
-        isMenuOpen={isMenuOpen}
-        onMobileMenuClose={onMobileMenuClose}
-      />
       <section className="profile">
       <h1 className="profile__title">Привет!!!!</h1>
         <form

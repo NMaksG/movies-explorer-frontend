@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
 
-  function handleMenuClick() {
-    onMobileMenuClose();
+  function handleMenuCloseClick() {
+    isMenuOpen &&  onMobileMenuClose();
   }
 
   return (
@@ -16,14 +16,14 @@ function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
         <Link 
           className={`header__link header__link_movies header${name}__link`}
           to="/movies"
-          onClick={isMenuOpen && handleMenuClick}
-        >
+          onClick={handleMenuCloseClick}
+          >
           Фильмы
         </Link>
         <Link
           className={`header__link header__link_save-movies header${name}__link`}
           to="/saved-movies"
-          onClick={isMenuOpen && handleMenuClick}
+          onClick={handleMenuCloseClick}
           >
           Сохраненные фильмы
         </Link>
@@ -32,7 +32,7 @@ function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
         <Link
           className={`header__button header__button_movies header${name}__button`}
           to="/profile"
-          onClick={isMenuOpen && handleMenuClick}
+          onClick={handleMenuCloseClick}
         >
           <img className="header__button_icon" src={headerButton} alt="Иконка кнопки"/>
           Аккаунт

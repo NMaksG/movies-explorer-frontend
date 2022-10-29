@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import './Register.css';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 
 function Register() {
   return(
     <>
-      <Header name="auth" />
+      {/* <Header name="auth" /> */}
       <section className="auth">
         <form
           className="auth__form"

@@ -1,7 +1,6 @@
 import './Header.css';
 import logoHeader from '../../images/header-icon.svg';
 import menuIcon from '../../images/menu-icon.svg';
-// import headerButton from '../../images/header-button.svg';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
