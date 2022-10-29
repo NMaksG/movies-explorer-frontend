@@ -26,6 +26,7 @@
   .promo {
     min-height: 784px;
     background-position: 50% 224px;
+    background-color: #073042;
   }
   
   .promo__text {

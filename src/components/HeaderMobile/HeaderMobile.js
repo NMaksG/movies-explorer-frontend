@@ -5,7 +5,7 @@ import Navigation from '../Navigation/Navigation';
 
 function HeaderMobile({ isMenuOpen, onMobileMenuClose }) {
 
-  function handleMenuClick() {
+  function handleMenuClickClose() {
     onMobileMenuClose();
   }
 
@@ -16,7 +16,7 @@ function HeaderMobile({ isMenuOpen, onMobileMenuClose }) {
           className="header-mobile__button-close"
           type="button"
           aria-label="Закрыть"
-          onClick={handleMenuClick}
+          onClick={handleMenuClickClose}
         >
         </button>
         <Link className="header-mobile__link" to="/">

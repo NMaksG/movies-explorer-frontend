@@ -7,6 +7,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import { useState } from 'react';
+import Error from '../Error/Error';
 
 function App() {
 
@@ -41,7 +42,11 @@ function App() {
           />
         </Route>
         <Route path="/profile">
-          <Profile/>
+          <Profile
+            onMobileMenuOpen={handleMobileOpenMenu}
+            onMobileMenuClose={handleMobileCloseMenu}
+            isMenuOpen={isMobileMenu}
+          />
         </Route>
         <Route path="/signin">
           <Login/>
@@ -50,6 +55,7 @@ function App() {
           <Register/>
         </Route>
       </Switch>
+      <Error/>
     </div>
   );
 }

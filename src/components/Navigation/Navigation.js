@@ -12,7 +12,7 @@ function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
 
   return (
     <>
-      <nav className={`header__nav header__nav_disable header${name}__nav`}>
+      <nav className={`header__nav header__nav_left header__nav_disable header${name}__nav`}>
         <Link 
           className={`header__link header__link_movies header${name}__link`}
           to="/movies"
@@ -24,12 +24,20 @@ function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
           className={`header__link header__link_save-movies header${name}__link`}
           to="/saved-movies"
           onClick={isMenuOpen && handleMenuClick}
-        >
+          >
           Сохраненные фильмы
         </Link>
       </nav>
       <nav className={`heder__nav header__nav_rigth header__nav_disable header${name}__nav`}>
-        <button
+        <Link
+          className={`header__button header__button_movies header${name}__button`}
+          to="/profile"
+          onClick={isMenuOpen && handleMenuClick}
+        >
+          <img className="header__button_icon" src={headerButton} alt="Иконка кнопки"/>
+          Аккаунт
+        </Link>
+        {/* <button
           className={`header__button header__button_movies header${name}__button`}
           type="button"
           aria-label="Аккаунт"
@@ -37,7 +45,7 @@ function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
         >
           <img className="header__button_icon" src={headerButton} alt="Иконка кнопки"/>
           Аккаунт
-        </button>
+        </button> */}
       </nav>
     </>
   );

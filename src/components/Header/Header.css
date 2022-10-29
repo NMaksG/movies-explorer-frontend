@@ -47,6 +47,10 @@
   gap: 16px;
 }
 
+.header__nav_left {
+  margin-left: 68px;
+}
+
 .header__nav_rigth {
   margin-right: 70px;
   gap: 30px;
@@ -110,13 +114,17 @@
   font-weight: 500;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 
 .header__button:hover {
   opacity: 0.7;
 }
 
-.header__button_about {
+/* .header__button_about {
   width: 76px;
   height: 32px;
   color: #000;
@@ -124,6 +132,17 @@
   line-height: 1.33;
   background: #3DDC84;
   border-radius: 3px;
+} */
+
+.header__link_login {
+  width: 76px;
+  height: 32px;
+  color: #000;
+  background: #3DDC84;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header__button_movies {
@@ -252,10 +271,15 @@
     line-height: 1.6;
   }
   
-  .header__button_about {
+  .header__link_login {
+    width: 54px;
+    height: 26px;
+    min-width: 0;
+  }
+  /* .header__button_about {
     width: 54px;
     height: 26px;
     font-size: 10px;
     line-height: 1.6;
-  }
+  } */
 }

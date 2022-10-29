@@ -6,14 +6,14 @@ function Register() {
   return(
     <>
       <Header name="auth" />
-      <div className="auth">
+      <section className="auth">
         <form
           className="auth__form"
-          name="popup-form-name"
+          name="form-register"
           id="name-form"
           // onSubmit={}
         >
-          <label className="auth__label auth__label-signup">
+          <label className="auth__label">
             Имя
             <input
               required
@@ -30,7 +30,7 @@ function Register() {
             />
             <span className="auth__error">Что-то пошло не так...</span>
           </label>
-          <label className="auth__label auth__label-signup">
+          <label className="auth__label">
             E-mail
             <input
               required
@@ -47,7 +47,7 @@ function Register() {
             />
             <span className="auth__error">Что-то пошло не так...</span>
           </label>
-          <label className="auth__label auth__label-signup">
+          <label className="auth__label">
             Пароль
             <input
               required
@@ -69,7 +69,7 @@ function Register() {
         <p className="auth__text">Уже зарегистрированы?
           <Link className="auth__link" to="/signin">Войти</Link>
         </p>
-      </div>
+      </section>
     </>
   );
 }

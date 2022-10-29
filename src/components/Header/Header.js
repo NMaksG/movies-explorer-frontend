@@ -17,14 +17,17 @@ function Header({ name, onMobileMenuOpen }) {
           <Link className="header__link" to="/signup">
             Регистрация
           </Link>
-            <button
+          <Link className="header__link header__link_login" to="/signin">
+            Войти
+          </Link>
+            {/* <button
               className="header__button header__button_about"
               type="button"
               aria-label="Войти"
               // onClick={}
             >
               Войти
-            </button>
+            </button> */}
         </div>
         </Route>
         <Route path="/movies">
@@ -38,14 +41,17 @@ function Header({ name, onMobileMenuOpen }) {
           />
         </Route>
         <Route path="/profile">
-          <Link className="header__link-logo" to="/">
-            <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
-          </Link>
+          <HeaderMovies
+            onMobileMenuOpen={onMobileMenuOpen}
+          />
         </Route>
         <Route path="/signin">
-          <Link className="header__link-logo" to="/">
-            <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
-          </Link>
+          <div className="header__container-auth">
+            <Link className="header__link-logo header__link-logo_auth" to="/">
+              <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
+            </Link>
+            <h1 className="header__title">Рады видеть!</h1>
+          </div>
         </Route>
         <Route path="/signup">
           <div className="header__container-auth">

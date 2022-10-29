@@ -110,6 +110,7 @@
   .techs {
     padding: 70px 0 70px;
     min-height: 651px;
+    background: transparent;
   }
   
   .techs__title {
