@@ -1,5 +1,8 @@
 .checkbox {
-  width: 20%;
+  margin-left: 29px;
+  max-width: 176px;
+  width: 100%;
+  display: flex;
 }
 
 .checkbox-mobile {
@@ -15,7 +18,7 @@
 }
 
 .checkbox__visible {
-  margin: 0 14px 0 29px;
+  margin: 0 14px 0 0;
   display: inline-block;
   vertical-align: middle;
   background-size: 36px 20px;
@@ -41,15 +44,9 @@
   line-height: 1.38;
 }
 
-@media screen and (max-width: 1175px) {
-  .checkbox {
-    width: 30%;
-  }
-}
-
 @media screen and (max-width: 1060px) {
-  .checkbox__visible {
-    margin: 0 14px 0 19px;
+  .checkbox {
+    margin-left: 19px;
   }
 }
 

@@ -4,7 +4,6 @@
   width: 100%;
   min-height: 608px;
   box-sizing: border-box;
-  background: #000;
 }
 
 .about-project__title {
@@ -152,14 +151,7 @@ margin: 0 70px;
   }
   
   .about-project__column {
-    display: grid;
     margin: 60px 18px 60px;
-    grid-template-columns: minmax(320px, 1fr);
-    grid-template-areas: 
-      "leftSubtitle"
-      "leftText"
-      "rightSubtitle"
-      "rightText";
   }
   
   .about-project__subtitle {
@@ -204,5 +196,16 @@ margin: 0 70px;
   
   .about-project__string_right-bottom {
     width: 65%;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .about-project__column {
+    grid-template-columns: minmax(250px, 1fr);
+    grid-template-areas: 
+      "leftSubtitle"
+      "leftText"
+      "rightSubtitle"
+      "rightText";
   }
 }
