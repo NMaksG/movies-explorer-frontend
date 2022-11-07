@@ -5,12 +5,12 @@ function MoviesCard({ movie, iconDelMovie }) {
     <li className="elements-item">
       <img
         className="elements-item__img"
-        src={movie.pic}
-        alt={movie.title}
+        src={`https://api.nomoreparties.co/${movie.image.url}`}
+        alt={movie.nameRU}
       />
       <div className="elements-item__group">
         <div className="element-item__row">
-          <h2 className="elements-item__title">{movie.title}</h2>
+          <h2 className="elements-item__title">{movie.nameRU}</h2>
           <button
             className={`elements-item__like elements-item__like_${iconDelMovie}`}
             type="button" aria-label="Лайк"
@@ -18,7 +18,7 @@ function MoviesCard({ movie, iconDelMovie }) {
           >
           </button>
         </div>
-          <p className="elements-item__time">{movie.time}</p>
+          <p className="elements-item__time">{movie.duration}</p>
       </div>
     </li>
   );

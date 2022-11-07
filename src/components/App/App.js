@@ -6,31 +6,20 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import { useState } from 'react';
+// import { useState } from 'react';
 import Error from '../Error/Error';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+// import { useEffect } from 'react';
 
 function App() {
 
-  const location = useLocation();
-  const [isMobileMenu, setIsMobileMenu] = useState(false);
-
-  function handleMobileOpenMenu() {
-    setIsMobileMenu(true);
-  }
-
-  function handleMobileCloseMenu() {
-    setIsMobileMenu(false);
-  }
+  const { pathname } = useLocation();
+  
 
   return (
     <div className="page">
-      <Header
-        onMobileMenuOpen={handleMobileOpenMenu}
-        onMobileMenuClose={handleMobileCloseMenu}
-        isMenuOpen={isMobileMenu}
-      />
+      <Header />
       <Switch>
         <Route exact path="/">
           <Main/>
@@ -41,6 +30,7 @@ function App() {
         </Route>
         <Route path="/saved-movies">
           <SavedMovies
+            // movies={movies}
           />
         </Route>
         <Route path="/profile">
@@ -54,9 +44,9 @@ function App() {
           <Register/>
         </Route>
       </Switch>
-      { (location.pathname === "/"
-      || location.pathname === "/movies"
-      || location.pathname === "/saved-movies")
+      { (pathname === "/"
+      || pathname === "/movies"
+      || pathname === "/saved-movies")
       && <Footer />
       }
       <Error/>

@@ -1,20 +1,30 @@
 import './Header.css';
+import { useState } from 'react';
 import logoHeader from '../../images/header-icon.svg';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import HeaderMovies from './HeaderMovies';
 import HeaderMobile from '../HeaderMobile/HeaderMobile';
 
-function Header({ onMobileMenuOpen, isMenuOpen, onMobileMenuClose }) {
+function Header() {
   
-  let location = useLocation();
+  const { pathname } = useLocation();
+  const [isMobileMenu, setIsMobileMenu] = useState(false);
+
+  function handleMobileOpenMenu() {
+    setIsMobileMenu(true);
+  }
+
+  function handleMobileCloseMenu() {
+    setIsMobileMenu(false);
+  }
 
   return (
     <header className={
-      (location.pathname === "/signin"
-      || location.pathname === "/signup")
+      (pathname === "/signin"
+      || pathname === "/signup")
       ? "header header_auth"
-      : location.pathname === "/"
+      : pathname === "/"
       ? "header header_about"
       : "header"}>
       <Switch>
@@ -41,29 +51,29 @@ function Header({ onMobileMenuOpen, isMenuOpen, onMobileMenuClose }) {
         </Route>
         <Route path="/movies">
           <HeaderMovies
-            onMobileMenuOpen={onMobileMenuOpen}
+            onMobileMenuOpen={handleMobileOpenMenu}
           />
           <HeaderMobile
-            isMenuOpen={isMenuOpen}
-            onMobileMenuClose={onMobileMenuClose}
+            isMenuOpen={isMobileMenu}
+            onMobileMenuClose={handleMobileCloseMenu}
            />
         </Route>
         <Route path="/saved-movies">
           <HeaderMovies
-            onMobileMenuOpen={onMobileMenuOpen}
+            onMobileMenuOpen={handleMobileOpenMenu}
           />
            <HeaderMobile
-            isMenuOpen={isMenuOpen}
-            onMobileMenuClose={onMobileMenuClose}
+            isMenuOpen={isMobileMenu}
+            onMobileMenuClose={handleMobileCloseMenu}
            />
         </Route>
         <Route path="/profile">
           <HeaderMovies
-            onMobileMenuOpen={onMobileMenuOpen}
+            onMobileMenuOpen={handleMobileOpenMenu}
           />
            <HeaderMobile
-            isMenuOpen={isMenuOpen}
-            onMobileMenuClose={onMobileMenuClose}
+            isMenuOpen={isMobileMenu}
+            onMobileMenuClose={handleMobileCloseMenu}
            />
         </Route>
         <Route path="/signin">

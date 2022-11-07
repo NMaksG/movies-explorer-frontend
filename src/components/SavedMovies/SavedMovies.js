@@ -1,15 +1,15 @@
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { savedMovies } from '../../utils/data';
+// import { savedMovies } from '../../utils/data';
 
-function SavedMovies() {
+function SavedMovies({ movies }) {
   return (
     <>
       <main className="content">
         <SearchForm />
         <MoviesCardList
-          movies={savedMovies}
+          movies={movies}
           iconDelMovie="del"
         />
       </main>

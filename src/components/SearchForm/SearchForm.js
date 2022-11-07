@@ -1,8 +1,31 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
+import { useState } from 'react';
 
-function SearchForm() {
+function SearchForm({ onGetMovies, onCheckedboxClick, input }) {
+
+  const [inputMovies, setinputMovies] = useState({movies: ''});
+  const [filterMoviesError, setfilterMoviesError] = useState('Фильм');
+
+  function handleChange(evt) {
+    const {name, value} = evt.target
+    setinputMovies({
+      ...inputMovies,
+      [name]: value,
+    })
+  }
+
+  function handleSabmit(evt) {
+    evt.preventDefault();
+    if (!inputMovies.movies) {
+      setfilterMoviesError('Нужно ввести ключевое слово!')
+    } else {
+      setfilterMoviesError('Фильм')
+      onGetMovies(inputMovies.movies);
+    }
+  }
+
   return (
     <section className="search">
       <div className="search__container">
@@ -11,7 +34,8 @@ function SearchForm() {
             className="search__form"
             name="search-form-movies"
             id="movies-form"
-            // onSubmit={}
+            noValidate
+            onSubmit={handleSabmit}
           >
             <img
               className="search__img"
@@ -24,18 +48,23 @@ function SearchForm() {
               className="search__input"
               name="movies"
               type="text"
-              placeholder="Фильм"
+              placeholder={filterMoviesError}
               autoComplete="off"
-              // value={}
-              // onChange={}
+              value={inputMovies.movies}
+              onChange={handleChange}
             />
             <button className="search__button" type="submit">
               Найти
             </button>
           </form>
-          <FilterCheckbox/>
+          <FilterCheckbox
+            onCheckedboxClick={onCheckedboxClick}
+          />
         </div>
-        <FilterCheckbox name="mobile"/>
+        <FilterCheckbox
+          onCheckedboxClick={onCheckedboxClick}
+          name="mobile"
+        />
       </div>
     </section>
   );

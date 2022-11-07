@@ -1,34 +1,39 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ movies, iconDelMovie }) {
+function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage }) {
   
-  let location = useLocation();
+  const { pathname } = useLocation();
   return (
     <section className="elements">
-        <ul className="elements__element">
+      {isloading
+        ? <Preloader />
+        : errorMessage
+        ? <p className="elements__error">{errorMessage}</p>
+        : <ul className="elements__element">
           { movies.map((item) =>
           (
             <MoviesCard
-              key={item._id}
+              key={item.id}
               movie={item}
               iconDelMovie={iconDelMovie}
             />
           ))}
         </ul>
-        
-        {
-          location.pathname === '/movies'
-            ? <div className="elements__item_withButton">
-                <button className="elements__button" type="button">
-                  Ещё
-                </button>
-              </div>
-            : <div className="elements__item">
-              </div>
-        }
-      </section>
+      }  
+      {
+        pathname === '/movies'
+          ? <div className="elements__item_withButton">
+              <button className="elements__button" type="button">
+                Ещё
+              </button>
+            </div>
+          : <div className="elements__item">
+            </div>
+      }
+    </section>
   );
 }
 
