@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
 import { useState } from 'react';
 
-function SearchForm({ onGetMovies, onCheckedboxClick, input }) {
+function SearchForm({ onGetMovies, onCheckedboxClick, onChecked }) {
 
   const [inputMovies, setinputMovies] = useState({movies: ''});
   const [filterMoviesError, setfilterMoviesError] = useState('Фильм');
@@ -16,7 +16,7 @@ function SearchForm({ onGetMovies, onCheckedboxClick, input }) {
     })
   }
 
-  function handleSabmit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
     if (!inputMovies.movies) {
       setfilterMoviesError('Нужно ввести ключевое слово!')
@@ -35,7 +35,7 @@ function SearchForm({ onGetMovies, onCheckedboxClick, input }) {
             name="search-form-movies"
             id="movies-form"
             noValidate
-            onSubmit={handleSabmit}
+            onSubmit={handleSubmit}
           >
             <img
               className="search__img"
@@ -59,6 +59,7 @@ function SearchForm({ onGetMovies, onCheckedboxClick, input }) {
           </form>
           <FilterCheckbox
             onCheckedboxClick={onCheckedboxClick}
+            onChecked={onChecked}
           />
         </div>
         <FilterCheckbox

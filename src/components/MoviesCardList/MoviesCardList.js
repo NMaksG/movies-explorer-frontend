@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage }) {
+function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick }) {
   
   const { pathname } = useLocation();
   return (
@@ -26,7 +26,11 @@ function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage }) {
       {
         pathname === '/movies'
           ? <div className="elements__item_withButton">
-              <button className="elements__button" type="button">
+              <button
+                className="elements__button"
+                type="button"
+                onClick={onClick}
+              >
                 Ещё
               </button>
             </div>
