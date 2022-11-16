@@ -1,5 +1,5 @@
-class moviesApi {
-  constructor({ baseUrl, headers}) {
+class MoviesApi {
+  constructor({ baseUrl, headers }) {
     this._url = baseUrl;
     this._headers = headers;
   }
@@ -20,7 +20,7 @@ class moviesApi {
   }
 }
 
-export default moviesApi = new moviesApi({
+export default MoviesApi = new MoviesApi({
   baseUrl: 'https://api.nomoreparties.co',
   headers: {'Content-Type': 'application/json'}
 });

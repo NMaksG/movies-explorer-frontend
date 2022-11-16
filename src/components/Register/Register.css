@@ -82,7 +82,13 @@
   cursor: pointer;
 }
 
-.auth__button:hover {
+
+.auth__button:disabled {
+  color: #c2c2c2;
+  background: #f8f8f8;
+}
+
+.auth__button:not([disabled]):hover {
   opacity: 0.7;
 }
 

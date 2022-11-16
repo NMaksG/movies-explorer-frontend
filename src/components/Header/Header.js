@@ -26,7 +26,12 @@ function Header() {
       ? "header header_auth"
       : pathname === "/"
       ? "header header_about"
-      : "header"}>
+      :(pathname === "/movies"
+      || pathname === "/saved-movies"
+      || pathname === "/profile")
+      ? "header"
+      : "header_disable"
+    }>
       <Switch>
         <Route exact path="/">
           <Link className="header__link-logo" to="/">

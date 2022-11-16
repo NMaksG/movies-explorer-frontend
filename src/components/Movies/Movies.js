@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 // import { movies } from '../../utils/data';
 
 
-function Movies() {
+function Movies({loggedIn}) {
 
   const [movies, setMovies] = useState([]);
   // const [inputMov, setInputMov] = useState('');
@@ -16,20 +16,12 @@ function Movies() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isloading, setIsLoading] = useState(false);
   const width = window.innerWidth;
-  const [pagination, setPagination] = useState(() => {
-    if (width < 480) {
-      return 5;
-    } else if (width < 768) {
-      return 8;
-    } else if (width > 768) {
-      return 12;
-    }
-  });
+  const [pagination, setPagination] = useState(null);
 
   const handlePagination = useCallback(() => {
-    if (width < 480) {
+    if (width < 590) {
       setPagination(5);
-    } else if (width < 768) {
+    } else if (width <= 768) {
       setPagination(8);
     } else if (width > 768) {
       setPagination(12);
@@ -43,12 +35,12 @@ function Movies() {
   }, [handlePagination]);
 
   function handleClickPagination() {
-    if (width < 480) {
+    if (width < 590) {
       setPagination(pagination + 1);
-    } else if (width < 768) {
+    } else if (width <= 768) {
       setPagination(pagination + 2);
     } else if (width > 768) {
-      setPagination(pagination + 3);
+      setPagination(pagination + 4);
     }
   }
   
@@ -73,38 +65,43 @@ function Movies() {
         })
         .finally(() => setIsLoading(false));
     }
-    filter(inputMovies);
+      filter(inputMovies);
   }
 
   const filter = useCallback((inputMovies) => {
     let filtered = JSON.parse(localStorage.getItem('movies'));
-    
+    handlePagination();
+    setErrorMessage('');
+    if (filtered) {
+    filtered = filtered.filter((element) => element.nameRU
+      .toLowerCase()
+      .includes(inputMovies.toLowerCase())
+      || element.nameEN
+      .toLowerCase()
+      .includes(inputMovies.toLowerCase())
+    );
+     
+    localStorage.setItem('inputMovies', inputMovies);
+    // localStorage.setItem('filerMovies', JSON.stringify(filtered));
     if(filtered.length === 0) {
       setErrorMessage('Ничего не найдено.');
-    } else {
-      filtered = filtered.filter((element) => element.nameRU
-        .toLowerCase()
-        .includes(inputMovies.toLowerCase()));
-       
-      localStorage.setItem('inputMovies', inputMovies);
-      localStorage.setItem('filerMovies', JSON.stringify(filtered));
-    }
+    } 
     
     if(isChecked) {
       filtered = filtered.filter((element) => element.duration <= 40);
-      localStorage.setItem('filerCheckedMovies', JSON.stringify(filtered));
+      // localStorage.setItem('filerCheckedMovies', JSON.stringify(filtered));
     }
     
-    setMovies(filtered);
-  }, [isChecked]);
+    setMovies(filtered);}
+  }, [handlePagination, isChecked]);
   
   useEffect(() => {
-    setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
-    filter(localStorage.getItem('inputMovies'));
+      // setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
+      filter(localStorage.getItem('inputMovies'));
     }, [filter, isChecked]);
 
-  const moviesPagination = aaa();
-  function aaa() {
+  const moviesPagination = handleMoviesPagination();
+  function handleMoviesPagination() {
     if (movies === null) {
       return []
     } else {
@@ -125,6 +122,7 @@ function Movies() {
           isloading={isloading}
           errorMessage={errorMessage}
           onClick={handleClickPagination}
+          pagination={movies}
         />
       </main>
     </>

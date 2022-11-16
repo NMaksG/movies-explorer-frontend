@@ -1,8 +1,34 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
 // import Header from '../Header/Header';
+import FormWithValidation from '../FormWithValidation/FormWithValidation';
 
-function Register() {
+function Register({ onRegister }) {
+
+  const { values, handleChange, errors, isValid, resetForm } = FormWithValidation();
+
+  // const [registerData, setRegisterData] = useState({
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  // });
+
+  // function handleChange(evt) {
+  //   const {name, value} = evt.target;
+  //   setRegisterData({
+  //     ...registerData,
+  //     [name]: value,
+  //   });
+  // }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    onRegister(values);
+    resetForm();
+  }
+
   return(
     <>
       {/* <Header name="auth" /> */}
@@ -11,7 +37,7 @@ function Register() {
           className="auth__form"
           name="form-register"
           id="name-form"
-          // onSubmit={}
+          onSubmit={handleSubmit}
         >
           <label className="auth__label">
             Имя
@@ -25,10 +51,10 @@ function Register() {
               type="text"
               placeholder="Имя"
               autoComplete="off"
-              // value={}
-              // onChange={}
+              value={values.name || ''}
+              onChange={handleChange}
             />
-            <span className="auth__error">Что-то пошло не так...</span>
+            <span className="auth__error">{errors.name}</span>
           </label>
           <label className="auth__label">
             E-mail
@@ -42,10 +68,10 @@ function Register() {
               type="email"
               placeholder="E-mail"
               autoComplete="off"
-              // value={}
-              // onChange={}
+              value={values.email || ''}
+              onChange={handleChange}
             />
-            <span className="auth__error">Что-то пошло не так...</span>
+            <span className="auth__error">{errors.email}</span>
           </label>
           <label className="auth__label">
             Пароль
@@ -59,12 +85,19 @@ function Register() {
               type="password"
               placeholder="Пароль"
               autoComplete="off"
-              // value={}
-              // onChange={}
+              value={values.password || ''}
+              onChange={handleChange}
             />
-            <span className="auth__error">Что-то пошло не так...</span>
+            <span className="auth__error">{errors.password}</span>
           </label>
-            <button className="auth__button" type="submit">Зарегистрироваться</button>
+          <span className="auth__error">{errors.name}</span>
+          <button
+            className="auth__button"
+            type="submit"
+            disabled={!isValid}
+          >
+            Зарегистрироваться
+          </button>
         </form>
         <p className="auth__text">Уже зарегистрированы?
           <Link className="auth__link" to="/signin">Войти</Link>

@@ -52,6 +52,7 @@
   line-height: 1.11;
   background: transparent;
   border: none;
+  outline: none;
 }
 
 .search__button {

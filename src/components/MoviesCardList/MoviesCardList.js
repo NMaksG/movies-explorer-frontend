@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick }) {
+function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick, pagination }) {
   
   const { pathname } = useLocation();
   return (
@@ -26,6 +26,7 @@ function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick
       {
         pathname === '/movies'
           ? <div className="elements__item_withButton">
+            {movies.length < pagination.length &&
               <button
                 className="elements__button"
                 type="button"
@@ -33,6 +34,7 @@ function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick
               >
                 Ещё
               </button>
+            }
             </div>
           : <div className="elements__item">
             </div>

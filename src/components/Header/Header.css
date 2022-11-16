@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+.header_disable {
+  display: none;
+}
+
 .header_about {
   background: #073042;
 }

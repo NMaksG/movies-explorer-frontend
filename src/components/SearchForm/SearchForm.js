@@ -1,16 +1,16 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function SearchForm({ onGetMovies, onCheckedboxClick, onChecked }) {
 
-  const [inputMovies, setinputMovies] = useState({movies: ''});
+  const [inputMovies, setInputMovies] = useState({movies: ''});
   const [filterMoviesError, setfilterMoviesError] = useState('Фильм');
 
   function handleChange(evt) {
     const {name, value} = evt.target
-    setinputMovies({
+    setInputMovies({
       ...inputMovies,
       [name]: value,
     })
@@ -25,6 +25,10 @@ function SearchForm({ onGetMovies, onCheckedboxClick, onChecked }) {
       onGetMovies(inputMovies.movies);
     }
   }
+  
+  useEffect(() => {
+    setInputMovies({movies: localStorage.getItem('inputMovies')});
+    }, []);
 
   return (
     <section className="search">
@@ -50,7 +54,7 @@ function SearchForm({ onGetMovies, onCheckedboxClick, onChecked }) {
               type="text"
               placeholder={filterMoviesError}
               autoComplete="off"
-              value={inputMovies.movies}
+              value={inputMovies.movies || ''}
               onChange={handleChange}
             />
             <button className="search__button" type="submit">

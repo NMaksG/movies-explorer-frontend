@@ -6,6 +6,7 @@ function FilterCheckbox({ name, onCheckedboxClick, onChecked }) {
         <input
           type="checkbox"
           className="checkbox__invisible"
+          // value={onChecked || false}
           onChange={onCheckedboxClick}
           checked={onChecked}
         />
