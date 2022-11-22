@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import '../Register/Register.css';
 import FormWithValidation from '../FormWithValidation/FormWithValidation';
 // import Header from '../Header/Header';
 
-function Login({ onLogin }) {
+function Login({ onLogin, errorsMessage, setErrorsMessage }) {
 
   const { values, handleChange, errors, isValid, resetForm } = FormWithValidation();
 
@@ -30,6 +30,10 @@ function Login({ onLogin }) {
     resetForm();
   }
 
+  useEffect(() => {
+    setErrorsMessage('')
+  }, [setErrorsMessage]);
+
   return(
     <>
       {/* <Header name="auth" /> */}
@@ -52,6 +56,7 @@ function Login({ onLogin }) {
               type="email"
               placeholder="E-mail"
               autoComplete="off"
+              pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
               value={values.email || ''}
               onChange={handleChange}
             />
@@ -74,7 +79,7 @@ function Login({ onLogin }) {
             />
           <span className="auth__error">{errors.password}</span>
           </label>
-          <span className="auth__error">{errors.email}</span>
+          <span className="auth__error auth__error_form">{errorsMessage}</span>
           <button
             className="auth__button"
             type="submit"
@@ -83,7 +88,7 @@ function Login({ onLogin }) {
             Войти
           </button>
         </form>
-        <p className="auth__text">Уже зарегистрированы?
+        <p className="auth__text">Ещё не зарегистрированы?
           <Link className="auth__link" to="/signup">Регистрация</Link>
         </p>
       </section>

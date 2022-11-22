@@ -21,10 +21,11 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({name: '', email: ''});
   const { pathname } = useLocation();
-  // const [userInfo, setUserInfo] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [errorsMessage, setErrorsMessage] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
   const history = useHistory();
+  const pageSavedMovies = true;
 
   // React.useEffect(() => {
   //   if(loggedIn) {
@@ -50,7 +51,6 @@ function App() {
   useEffect(() => {
     auth.getContent()
       .then((res) => {
-        // setUserInfo(res);
         setLoggedIn(true);
         setCurrentUser(res);
       })
@@ -59,7 +59,7 @@ function App() {
         setLoggedIn(false);
         localStorage.clear();
       });
-    }, []);
+    }, [loggedIn]);
 
   useEffect(() => {
     if(loggedIn) {
@@ -70,30 +70,28 @@ function App() {
   function handleLogin(data) {
     return auth.authorize(data)
       .then((res) => {
-      // setUserInfo(res);
         setLoggedIn(true);
-      setCurrentUser(res);
+        // setCurrentUser(res);
       })
       .catch((err) => {
-      // setIsInfoTooltipPopupOpen(true);
-      // setIsInfoTooltip(false);
         console.log(err);
+        err === "Ошибка: 401"
+        ? setErrorsMessage('Вы ввели неправильный логин или пароль')
+        : setErrorsMessage('При авторизации произошла ошибка');
       });
   }
   
   function handleRegister(data) {
     return auth.register(data)
       .then((res) => {
-      // setIsInfoTooltipPopupOpen(true);
-      // setIsInfoTooltip(true)
         setLoggedIn(true);
-        setCurrentUser(res);
-      // history.push('/movies');
+        // setCurrentUser(res);
       })
       .catch((err) => {
-      // setIsInfoTooltipPopupOpen(true);
-      // setIsInfoTooltip(false);
         console.log(err);
+        err === "Ошибка: 409" 
+        ? setErrorsMessage('Пользователь с таким Email уже существует')
+        : setErrorsMessage('При регистрации пользователя произошла ошибка');
       });
   }
 
@@ -101,10 +99,13 @@ function App() {
     MainApi.setUserInfo(data)
       .then((res) => {
         setCurrentUser(res);
-        setMessage(true);
+        setErrorsMessage('Обновление профиля прошло успешно');
       })
       .catch((err) => {
         console.log(err);
+        err === "Ошибка: 409" 
+        ? setErrorsMessage('Пользователь с таким Email уже существует')
+        : setErrorsMessage('При обновлении профиля произошла ошибка');
       });
   }
 
@@ -119,6 +120,122 @@ function App() {
         console.log(err);
       });
   }
+  
+    // const handleSavedAndDeleteMovies = (data) => {
+    //   const isLikedAndSaved = likedAndSavedMovies.some(
+    //     (m) => data.movieId === m.movieId,
+    //   );
+  
+    //   if (!isLikedAndSaved) {
+    //     mainApi
+    //       .likedAndSavedMovie(data)
+    //       .then((res) => {
+    //         setLikedAndSavedMovies([res, ...likedAndSavedMovies]);
+    //       })
+    //       .catch((err) => {
+    //         if (err === 'Ошибка: 401') {
+    //           setIsLogin(false);
+    //           setMovies([]);
+    //           setLikedAndSavedMovies([]);
+    //           setSavedMoviesForRender([]);
+    //           history.push('/');
+    //           localStorage.clear();
+    //         } else {
+    //           setIsPopupErrorOpen(true);
+    //         }
+    //         console.log(err);
+    //       });
+    //   }
+  
+    //   if (isLikedAndSaved) {
+    //     const movie = likedAndSavedMovies.find((i) => i.movieId === data.movieId);
+    //     mainApi
+    //       .deleteSavedMovie(movie)
+    //       .then((res) => {
+    //         setLikedAndSavedMovies(
+    //           likedAndSavedMovies.filter((m) => m._id !== movie._id && res),
+    //         );
+    //       })
+    //       .catch((err) => {
+    //         if (err === 'Ошибка: 401') {
+    //           setIsLogin(false);
+    //           setMovies([]);
+    //           setLikedAndSavedMovies([]);
+    //           setSavedMoviesForRender([]);
+    //           history.push('/');
+    //           localStorage.clear();
+    //         } else {
+    //           setIsPopupErrorOpen(true);
+    //         }
+    //         console.log(err);
+    //       });
+    //   }
+    // };
+  
+    // const handleRemoveSavedMovies = (data) => {
+    //   mainApi
+    //     .deleteSavedMovie(data)
+    //     .then((res) => {
+    //       setLikedAndSavedMovies(
+    //         likedAndSavedMovies.filter((m) => m._id !== data._id && res),
+    //       );
+    //     })
+    //     .catch((err) => {
+    //       setIsPopupErrorOpen(true);
+    //       console.log(err);
+    //     });
+    // };
+
+  function handleLikeMovies(movie) {
+    const isLiked = savedMovies.some((item) => item.movieId === movie.id);
+    if (!isLiked) {
+      MainApi.setLikeMovies(movie)
+        .then((res) => {
+          // const userMovies = res.filter((movie) => movie.owner === currentUser._id)
+          setSavedMovies([res, ...savedMovies]);
+        })
+        .catch((err) => {
+          console.log(err);
+      });
+   }
+
+    if (isLiked) {
+      const savedMovie = savedMovies.find((item) => item.movieId === movie.id);
+      // MainApi.delMovies(savedMovie)
+      // .then((res) => {
+      //   setSavedMovies((savedMovies) => savedMovies.filter((item) => !(item.movieId === movie.id)));
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+      handleDelMovies(savedMovie);
+    }
+  }
+
+  function handleDelMovies(movie) {
+    const savedMovie = savedMovies.find((item) => item.movieId === movie.movieId);
+    MainApi.delMovies(savedMovie)
+      .then((res) => {
+        setSavedMovies((savedMovies) => savedMovies.filter((item) => !(item.movieId === movie.movieId)));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    MainApi.getInitialSavedMovies()
+      .then((res) => {
+        setSavedMovies(res.filter((movie) => movie.owner === currentUser._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [currentUser._id]);
+
+//   useEffect(() => {
+//     setSavedMovies(savedMovies);
+// }, [savedMovies, setSavedMovies]);
 
   return (
     <div className="page">
@@ -132,11 +249,17 @@ function App() {
             path="/movies"
             component={Movies}
             loggedIn={loggedIn}
+            onButtonMovieClick={handleLikeMovies}
+            savedMovies={savedMovies}
             />
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
             loggedIn={loggedIn}
+            savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
+            pageSavedMovies={pageSavedMovies}
+            onDelMovie={handleDelMovies}
             />
           <ProtectedRoute
             path="/profile"
@@ -144,7 +267,8 @@ function App() {
             loggedIn={loggedIn}
             onLogout={handleLogout}
             onUpdateUser={handleUpdateUser}
-            message={message}
+            errorsMessage={errorsMessage}
+            setErrorsMessage={setErrorsMessage}
           />
           {/* <Route path="/movies">
             <Movies
@@ -161,10 +285,18 @@ function App() {
             />
           </Route> */}
           <Route path="/signin">
-            <Login onLogin={handleLogin} />
+            <Login
+              onLogin={handleLogin}
+              errorsMessage={errorsMessage}
+              setErrorsMessage={setErrorsMessage}
+            />
           </Route>
           <Route path="/signup">
-            <Register onRegister={handleRegister} />
+            <Register
+              onRegister={handleRegister}
+              errorsMessage={errorsMessage}
+              setErrorsMessage={setErrorsMessage}
+            />
           </Route>
           <Route path="*">
             <Error />

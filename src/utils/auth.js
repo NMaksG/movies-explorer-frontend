@@ -1,10 +1,12 @@
 // const baseUrl = 'https://api.nmg-diploma.nomoredomains.icu';
 const baseUrl = 'http://localhost:3001';
 
-const checkResponse = (response) =>
-  response.ok ?
-    response.json()
-    : Promise.reject(new Error(`Ошибка ${response.status}: ${response.statusText}`));
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
 
 const headers = {
   'Accept': 'application/json',

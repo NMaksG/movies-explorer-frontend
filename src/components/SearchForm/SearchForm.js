@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-icon.svg';
 import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetMovies, onCheckedboxClick, onChecked }) {
+function SearchForm({ onGetMovies, onCheckedboxClick, onChecked, pageSavedMovies }) {
 
   const [inputMovies, setInputMovies] = useState({movies: ''});
   const [filterMoviesError, setfilterMoviesError] = useState('Фильм');
@@ -27,8 +27,8 @@ function SearchForm({ onGetMovies, onCheckedboxClick, onChecked }) {
   }
   
   useEffect(() => {
-    setInputMovies({movies: localStorage.getItem('inputMovies')});
-    }, []);
+    !pageSavedMovies && setInputMovies({movies: localStorage.getItem('inputMovies')});
+    }, [pageSavedMovies]);
 
   return (
     <section className="search">

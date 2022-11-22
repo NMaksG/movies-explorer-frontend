@@ -3,7 +3,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import FormWithValidation from '../FormWithValidation/FormWithValidation';
 import { useContext, useEffect, useState } from 'react';
 
-function Profile({ onLogout, onUpdateUser, message }) {
+function Profile({ onLogout, onUpdateUser, errorsMessage, setErrorsMessage }) {
 
   const currentUser = useContext(CurrentUserContext);
   const [isButtonVisibility, setIsButtonVisibility] = useState(false);
@@ -17,13 +17,18 @@ function Profile({ onLogout, onUpdateUser, message }) {
     )
       ? setIsProfileValid(false)
       : setIsProfileValid(true)
+
+      // setErrorsMessage('')
     
-  }, [currentUser, isValid, values]);
+  }, [currentUser, isValid, setErrorsMessage, values]);
 
   useEffect(() => {
-    message && setIsButtonVisibility(false);
+      setErrorsMessage('')
+  }, [setErrorsMessage]);
+
+  useEffect(() => {
     setValues({ name: currentUser.name, email: currentUser.email });
-  }, [currentUser, message, setValues]);
+  }, [currentUser, setValues]);
 
   function handleButtonClick(evt) {
     evt.preventDefault();
@@ -65,7 +70,7 @@ function Profile({ onLogout, onUpdateUser, message }) {
               onChange={handleChange}
             />
           </label>
-            <span className="profile__error">{errors.name}</span>
+          <span className="profile__error">{errors.name}</span>
           <span className="profile__line"></span>
           <label className="profile__label">
             E-mail
@@ -79,14 +84,19 @@ function Profile({ onLogout, onUpdateUser, message }) {
               type="email"
               placeholder="E-mail"
               autoComplete="off"
+              pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
               value={values.email || ''}
               onChange={handleChange}
             />
           </label>
           <span className="profile__error">{errors.email}</span>
+          {errorsMessage
+            ? <span className="profile__error profile__error_form">{errorsMessage}</span>
+            : ''
+          }
           {isButtonVisibility
             ? <button
-              className="auth__button "
+              className="profile__button profile__submit-button"
               type="submit"
               disabled={!isProfileValid}
             >

@@ -3,7 +3,18 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick, pagination }) {
+function MoviesCardList({
+  movies,
+  iconDelMovie,
+  iconActiveLikeMovie,
+  isloading,
+  errorMessage,
+  onButtonPaginationClick,
+  pagination,
+  onButtonMovieClick,
+  savedMovies,
+  pageSavedMovies
+}) {
   
   const { pathname } = useLocation();
   return (
@@ -16,9 +27,14 @@ function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick
           { movies.map((item) =>
           (
             <MoviesCard
-              key={item.id}
+              key={pageSavedMovies ? item._id : item.id}
               movie={item}
+              movies={movies}
+              savedMovies={savedMovies}
               iconDelMovie={iconDelMovie}
+              iconActiveLikeMovie={iconActiveLikeMovie}
+              onButtonMovieClick={onButtonMovieClick}
+              pageSavedMovies={pageSavedMovies}
             />
           ))}
         </ul>
@@ -30,7 +46,7 @@ function MoviesCardList({ movies, iconDelMovie, isloading, errorMessage, onClick
               <button
                 className="elements__button"
                 type="button"
-                onClick={onClick}
+                onClick={onButtonPaginationClick}
               >
                 Ещё
               </button>

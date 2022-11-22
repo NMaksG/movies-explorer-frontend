@@ -63,6 +63,13 @@
   color: #ee3465;
 }
 
+.auth__error_form {
+  margin: 20px auto 0;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+}
+
 .auth__button {
   margin: 134px 0 0;
   padding: 0;

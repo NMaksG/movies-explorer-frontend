@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
 // import Header from '../Header/Header';
 import FormWithValidation from '../FormWithValidation/FormWithValidation';
 
-function Register({ onRegister }) {
+function Register({ onRegister, errorsMessage, setErrorsMessage }) {
 
   const { values, handleChange, errors, isValid, resetForm } = FormWithValidation();
 
@@ -28,6 +28,10 @@ function Register({ onRegister }) {
     onRegister(values);
     resetForm();
   }
+
+  useEffect(() => {
+    setErrorsMessage('')
+  }, [setErrorsMessage]);
 
   return(
     <>
@@ -68,6 +72,7 @@ function Register({ onRegister }) {
               type="email"
               placeholder="E-mail"
               autoComplete="off"
+              pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
               value={values.email || ''}
               onChange={handleChange}
             />
@@ -90,7 +95,7 @@ function Register({ onRegister }) {
             />
             <span className="auth__error">{errors.password}</span>
           </label>
-          <span className="auth__error">{errors.name}</span>
+          <span className="auth__error auth__error_form">{errorsMessage}</span>
           <button
             className="auth__button"
             type="submit"

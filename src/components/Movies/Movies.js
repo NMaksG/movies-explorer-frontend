@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 // import { movies } from '../../utils/data';
 
 
-function Movies({loggedIn}) {
+function Movies({ onButtonMovieClick, savedMovies }) {
 
   const [movies, setMovies] = useState([]);
   // const [inputMov, setInputMov] = useState('');
@@ -96,7 +96,7 @@ function Movies({loggedIn}) {
   }, [handlePagination, isChecked]);
   
   useEffect(() => {
-      // setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
+      setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
       filter(localStorage.getItem('inputMovies'));
     }, [filter, isChecked]);
 
@@ -119,10 +119,13 @@ function Movies({loggedIn}) {
         />
         <MoviesCardList
           movies={moviesPagination}
+          savedMovies={savedMovies}
           isloading={isloading}
           errorMessage={errorMessage}
-          onClick={handleClickPagination}
+          onButtonPaginationClick={handleClickPagination}
           pagination={movies}
+          onButtonMovieClick={onButtonMovieClick}
+          iconActiveLikeMovie="active"
         />
       </main>
     </>

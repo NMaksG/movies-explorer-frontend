@@ -11,21 +11,13 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getInitialCards() {
+  getInitialSavedMovies() {
     return fetch(`${this._url}/movies`, {
       credentials: 'include',
       headers: this._headers,
     })
     .then(this._getResult);
   }
-
-  // getUserInfo() {
-  //   return fetch(`${this._url}/users/me`, {
-  //     credentials: 'include',
-  //     headers: this._headers
-  //   })
-  //   .then(this._getResult)
-  // } 
 
   setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
@@ -40,34 +32,8 @@ class MainApi {
     .then(this._getResult);
   }
 
-  
-  // setAvatar(avatar) {
-  //   return fetch(`${this._url}/users/me/avatar`, {
-  //     credentials: 'include',
-  //     method: 'PATCH',
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       avatar: avatar
-  //     })
-  //   })
-  //   .then(this._getResult);
-  // } 
-
-  addCards(data) {
-    return fetch(`${this._url}/cards`, {
-      credentials: 'include',
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link
-      })
-    })
-    .then(this._getResult);
-  } 
-
-  delCard(card) {
-    return fetch(`${this._url}/cards/${card._id}`, {
+  delMovies(movie) {
+    return fetch(`${this._url}/movies/${movie._id}`, {
       credentials: 'include',
       method: 'DELETE',
       headers: this._headers,
@@ -75,11 +41,24 @@ class MainApi {
     .then(this._getResult);
   } 
 
-  setLikeCard(card, isLike) {
-    return fetch(`${this._url}/cards/${card._id}/likes`, {
+  setLikeMovies(movie) {
+    return fetch(`${this._url}/movies`, {
       credentials: 'include',
-      method: isLike ? 'DELETE' : 'PUT',
+      method: 'POST',
       headers: this._headers,
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co/${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+      }),
     })
     .then(this._getResult);
   } 
