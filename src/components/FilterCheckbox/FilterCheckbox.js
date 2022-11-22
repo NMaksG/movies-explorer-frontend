@@ -6,9 +6,8 @@ function FilterCheckbox({ name, onCheckedboxClick, onChecked }) {
         <input
           type="checkbox"
           className="checkbox__invisible"
-          // value={onChecked || false}
+          value={onChecked || false}
           onChange={onCheckedboxClick}
-          checked={onChecked}
         />
         <span className="checkbox__visible"></span>
         <span className="checkbox__text">Короткометражки</span>

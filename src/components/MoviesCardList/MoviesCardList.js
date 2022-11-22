@@ -29,7 +29,6 @@ function MoviesCardList({
             <MoviesCard
               key={pageSavedMovies ? item._id : item.id}
               movie={item}
-              movies={movies}
               savedMovies={savedMovies}
               iconDelMovie={iconDelMovie}
               iconActiveLikeMovie={iconActiveLikeMovie}

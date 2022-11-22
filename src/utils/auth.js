@@ -1,5 +1,5 @@
-// const baseUrl = 'https://api.nmg-diploma.nomoredomains.icu';
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'https://api.nmg-diploma.nomoredomains.icu';
+// const baseUrl = 'http://localhost:3001';
 
 const checkResponse = (res) => {
   if (res.ok) {

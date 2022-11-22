@@ -1,31 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import '../Register/Register.css';
 import FormWithValidation from '../FormWithValidation/FormWithValidation';
-// import Header from '../Header/Header';
 
 function Login({ onLogin, errorsMessage, setErrorsMessage }) {
 
   const { values, handleChange, errors, isValid, resetForm } = FormWithValidation();
 
-  // const [loginData, setLoginData] = useState({
-  //   email: '',
-  //   password: '',
-  // });
-
-  // function handleChange(evt) {
-  //   const {name, value} = evt.target;
-  //   setLoginData({
-  //     ...loginData,
-  //     [name]: value,
-  //   });
-  // }
-
   function handleSubmit(evt) {
     evt.preventDefault();
-    // if(!values.email || !values.password) {
-    //   return
-    // }
     onLogin(values);
     resetForm();
   }
@@ -36,7 +18,6 @@ function Login({ onLogin, errorsMessage, setErrorsMessage }) {
 
   return(
     <>
-      {/* <Header name="auth" /> */}
       <section className="auth">
         <form
           className="auth__form"

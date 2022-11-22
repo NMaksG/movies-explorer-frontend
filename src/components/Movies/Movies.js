@@ -5,13 +5,11 @@ import { useState } from 'react';
 import MoviesApi from '../../utils/MoviesApi';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
-// import { movies } from '../../utils/data';
 
 
 function Movies({ onButtonMovieClick, savedMovies }) {
 
   const [movies, setMovies] = useState([]);
-  // const [inputMov, setInputMov] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isloading, setIsLoading] = useState(false);
@@ -82,14 +80,12 @@ function Movies({ onButtonMovieClick, savedMovies }) {
     );
      
     localStorage.setItem('inputMovies', inputMovies);
-    // localStorage.setItem('filerMovies', JSON.stringify(filtered));
     if(filtered.length === 0) {
       setErrorMessage('Ничего не найдено.');
     } 
     
     if(isChecked) {
       filtered = filtered.filter((element) => element.duration <= 40);
-      // localStorage.setItem('filerCheckedMovies', JSON.stringify(filtered));
     }
     
     setMovies(filtered);}

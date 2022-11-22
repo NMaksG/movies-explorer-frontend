@@ -27,27 +27,6 @@ function App() {
   const history = useHistory();
   const pageSavedMovies = true;
 
-  // React.useEffect(() => {
-  //   if(loggedIn) {
-  //     mainApi.getUserInfo()
-  //       .then((res) => {
-  //         setCurrentUser(res);
-  //         history.push('/movies');
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-        
-  //     // api.getInitialCards()
-  //     //   .then((res) => {
-  //     //     setCards(res);
-  //     //   })
-  //     //   .catch((err) => {
-  //     //     console.log(err);
-  //     //   });
-  //       }
-  //   }, [history, loggedIn]);
-  
   useEffect(() => {
     auth.getContent()
       .then((res) => {
@@ -71,7 +50,6 @@ function App() {
     return auth.authorize(data)
       .then((res) => {
         setLoggedIn(true);
-        // setCurrentUser(res);
       })
       .catch((err) => {
         console.log(err);
@@ -85,7 +63,6 @@ function App() {
     return auth.register(data)
       .then((res) => {
         setLoggedIn(true);
-        // setCurrentUser(res);
       })
       .catch((err) => {
         console.log(err);
@@ -126,7 +103,6 @@ function App() {
     if (!isLiked) {
       MainApi.setLikeMovies(movie)
         .then((res) => {
-          // const userMovies = res.filter((movie) => movie.owner === currentUser._id)
           setSavedMovies([res, ...savedMovies]);
         })
         .catch((err) => {
@@ -136,13 +112,6 @@ function App() {
 
     if (isLiked) {
       const savedMovie = savedMovies.find((item) => item.movieId === movie.id);
-      // MainApi.delMovies(savedMovie)
-      // .then((res) => {
-      //   setSavedMovies((savedMovies) => savedMovies.filter((item) => !(item.movieId === movie.id)));
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
       handleDelMovies(savedMovie);
     }
   }
@@ -159,6 +128,7 @@ function App() {
   }
 
   useEffect(() => {
+    if (loggedIn) {
     MainApi.getInitialSavedMovies()
       .then((res) => {
         setSavedMovies(res.filter((movie) => movie.owner === currentUser._id));
@@ -166,11 +136,8 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, [currentUser._id]);
-
-//   useEffect(() => {
-//     setSavedMovies(savedMovies);
-// }, [savedMovies, setSavedMovies]);
+    }
+  }, [loggedIn, currentUser._id]);
 
   return (
     <div className="page">
@@ -205,20 +172,6 @@ function App() {
             errorsMessage={errorsMessage}
             setErrorsMessage={setErrorsMessage}
           />
-          {/* <Route path="/movies">
-            <Movies
-            />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies
-              // movies={movies}
-            />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              onLogout={handleLogout}
-            />
-          </Route> */}
           <Route path="/signin">
             <Login
               onLogin={handleLogin}

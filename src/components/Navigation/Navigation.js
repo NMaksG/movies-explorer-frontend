@@ -1,4 +1,3 @@
-// import './.css';
 import '../Header/Header.css';
 import '../HeaderMobile/HeaderMobile.css';
 import headerButton from '../../images/header-button.svg';
@@ -37,15 +36,6 @@ function Navigation({ name, onMobileMenuClose, isMenuOpen }) {
           <img className="header__button_icon" src={headerButton} alt="Иконка кнопки"/>
           Аккаунт
         </Link>
-        {/* <button
-          className={`header__button header__button_movies header${name}__button`}
-          type="button"
-          aria-label="Аккаунт"
-          // onClick={}
-        >
-          <img className="header__button_icon" src={headerButton} alt="Иконка кнопки"/>
-          Аккаунт
-        </button> */}
       </nav>
     </>
   );

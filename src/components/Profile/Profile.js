@@ -18,8 +18,6 @@ function Profile({ onLogout, onUpdateUser, errorsMessage, setErrorsMessage }) {
       ? setIsProfileValid(false)
       : setIsProfileValid(true)
 
-      // setErrorsMessage('')
-    
   }, [currentUser, isValid, setErrorsMessage, values]);
 
   useEffect(() => {

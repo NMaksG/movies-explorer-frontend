@@ -2,18 +2,16 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect } from 'react';
-import MainApi from '../../utils/MainApi';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { useState } from 'react';
-import { useContext } from 'react';
 import { useCallback } from 'react';
-// import { savedMovies } from '../../utils/data';
+import { useState } from 'react';
 
 function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
 
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [myFilterSavedMovies, setMyFilterSavedMovies] = useState([]);
   const [mySavedMovies, setMySavedMovies] = useState([]);
+  const [inputSavedMovies, setInputSavedMovies] = useState('');
 
   function handleCheckedbox() {
     isChecked
@@ -29,7 +27,10 @@ function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
   }
 
   const filter = useCallback((inputMovies) => {
-    let filtered = mySavedMovies.filter((element) => element.nameRU
+    setInputSavedMovies(inputMovies);
+    let filtered = mySavedMovies;
+    if (inputMovies) {
+    filtered = mySavedMovies.filter((element) => element.nameRU
       .toLowerCase()
       .includes(inputMovies.toLowerCase())
       || element.nameEN
@@ -39,20 +40,19 @@ function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
      
     if(filtered.length === 0) {
       setErrorMessage('Ничего не найдено.');
-    } 
+    }} 
     
     if(isChecked) {
       filtered = filtered.filter((element) => element.duration <= 40);
     }
     
-    setMySavedMovies(filtered);
-  }, [isChecked, mySavedMovies]);
+    setMyFilterSavedMovies(filtered);
+  }, [isChecked, mySavedMovies, setInputSavedMovies]);
   
   useEffect(() => {
-      // setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
-      // filter(localStorage.getItem('inputMovies'));
       setMySavedMovies(savedMovies);
-    }, [savedMovies, isChecked]);
+      filter(inputSavedMovies);
+    }, [filter, inputSavedMovies, savedMovies, isChecked]);
 
   return (
     <>
@@ -64,7 +64,7 @@ function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
           onChecked={isChecked}
         />
         <MoviesCardList
-          movies={mySavedMovies}
+          movies={myFilterSavedMovies}
           iconDelMovie="del"
           errorMessage={errorMessage}
           pageSavedMovies={pageSavedMovies}

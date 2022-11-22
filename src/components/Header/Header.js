@@ -44,14 +44,6 @@ function Header() {
           <Link className="header__link header__link_login" to="/signin">
             Войти
           </Link>
-            {/* <button
-              className="header__button header__button_about"
-              type="button"
-              aria-label="Войти"
-              // onClick={}
-            >
-              Войти
-            </button> */}
         </div>
         </Route>
         <Route path="/movies">

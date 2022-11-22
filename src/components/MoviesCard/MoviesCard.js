@@ -18,11 +18,19 @@ function MoviesCard({
 
   return (
     <li className="elements-item">
-      <img
-        className="elements-item__img"
-        src={pageSavedMovies ? movie.image : `https://api.nomoreparties.co/${movie.image.url}`}
-        alt={movie.nameRU}
-      />
+      <a
+        className="elements__link"
+        href={movie.trailerLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={movie.trailerLink}
+      >
+        <img
+          className="elements-item__img"
+          src={pageSavedMovies ? movie.image : `https://api.nomoreparties.co/${movie.image.url}`}
+          alt={movie.nameRU}
+        />
+      </a>
       <div className="elements-item__group">
         <div className="element-item__row">
           <h2 className="elements-item__title">{movie.nameRU}</h2>

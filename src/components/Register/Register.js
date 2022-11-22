@@ -1,26 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
-// import Header from '../Header/Header';
 import FormWithValidation from '../FormWithValidation/FormWithValidation';
 
 function Register({ onRegister, errorsMessage, setErrorsMessage }) {
 
   const { values, handleChange, errors, isValid, resetForm } = FormWithValidation();
-
-  // const [registerData, setRegisterData] = useState({
-  //   name: '',
-  //   email: '',
-  //   password: '',
-  // });
-
-  // function handleChange(evt) {
-  //   const {name, value} = evt.target;
-  //   setRegisterData({
-  //     ...registerData,
-  //     [name]: value,
-  //   });
-  // }
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -35,7 +20,6 @@ function Register({ onRegister, errorsMessage, setErrorsMessage }) {
 
   return(
     <>
-      {/* <Header name="auth" /> */}
       <section className="auth">
         <form
           className="auth__form"
