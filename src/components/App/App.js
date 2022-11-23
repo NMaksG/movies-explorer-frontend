@@ -48,21 +48,23 @@ function App() {
 
   function handleLogin(data) {
     return auth.authorize(data)
-      .then((res) => {
-        setLoggedIn(true);
-      })
+    .then((res) => {
+      setLoggedIn(true);
+      history.push('/movies');
+    })
       .catch((err) => {
         console.log(err);
         err === "Ошибка: 401"
         ? setErrorsMessage('Вы ввели неправильный логин или пароль')
         : setErrorsMessage('При авторизации произошла ошибка');
       });
-  }
+    }
   
   function handleRegister(data) {
     return auth.register(data)
-      .then((res) => {
-        setLoggedIn(true);
+    .then((res) => {
+      setLoggedIn(true);
+      history.push('/movies');
       })
       .catch((err) => {
         console.log(err);
