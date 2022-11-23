@@ -66,7 +66,7 @@ class MainApi {
 
 const mainApi = new MainApi({
   // baseUrl: 'http://localhost:3001',
-  baseUrl: 'api.nmg-diploma.nomoredomains.icu',
+  baseUrl: 'https://api.nmg-diploma.nomoredomains.icu',
   headers: {
     'Content-Type': 'application/json'
   }
