@@ -1,5 +1,5 @@
-const baseUrl = 'https://api.nmg-diploma.nomoredomains.icu';
-// const baseUrl = 'http://localhost:3001';
+// const baseUrl = 'https://api.nmg-diploma.nomoredomains.icu';
+const baseUrl = 'http://localhost:3001';
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -15,6 +15,7 @@ const headers = {
 
 export const register = ({ name, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
+    credentials: 'include',
     method: 'POST',
     headers,
     body: JSON.stringify({
