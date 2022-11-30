@@ -112,14 +112,6 @@ function Movies({ onButtonMovieClick, savedMovies, loggedIn }) {
     && setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
     }, []);
 
-    useEffect(() => {
-      if(!loggedIn) {
-        setMovies([]);
-        setIsChecked(false);
-        setErrorMessage('');
-      }
-    },[loggedIn])
-
   const moviesPagination = handleMoviesPagination();
   function handleMoviesPagination() {
     if (movies === null) {

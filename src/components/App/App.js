@@ -96,9 +96,6 @@ function App() {
         history.push('/');
         setLoggedIn(false);
         localStorage.clear();
-        setCurrentUser({});
-        setErrorsMessage('');
-        setSavedMovies([]);
       })
       .catch((err) => {
         console.log(err);

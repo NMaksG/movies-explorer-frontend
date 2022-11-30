@@ -52,16 +52,6 @@ function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie, loggedIn }) {
       filter(inputSavedMovies);
     }, [filter, inputSavedMovies, savedMovies, isChecked]);
 
-    useEffect(() => {
-      if(!loggedIn) {
-        setMySavedMovies([]);
-        setMyFilterSavedMovies([]);
-        setInputSavedMovies('');
-        setIsChecked(false);
-        setErrorMessage('');
-      }
-    },[loggedIn])
-
   return (
     <>
       <main className="content">
