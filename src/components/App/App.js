@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -14,7 +14,7 @@ import { useState } from 'react';
 import * as auth from '../../utils/auth.js';
 import MainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../context/CurrentUserContext.js';
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import React from 'react';
 
 function App() {
@@ -40,17 +40,18 @@ function App() {
       });
     }, [loggedIn]);
 
-  useEffect(() => {
-    if(loggedIn) {
-      history.push('/movies');
-    }
-  }, [loggedIn, history]);
+  // useEffect(() => {
+  //   if(loggedIn) {
+  //     history.push('/movies');
+  //   }
+  // }, [loggedIn, history]);
 
   function handleLogin(data) {
     return auth.authorize(data)
     .then((res) => {
       setLoggedIn(true);
       history.push('/movies');
+      localStorage.setItem('loggedIn', true);
     })
       .catch((err) => {
         console.log(err);
@@ -65,6 +66,7 @@ function App() {
     .then((res) => {
       setLoggedIn(true);
       history.push('/movies');
+      handleLogin(data);
       })
       .catch((err) => {
         console.log(err);
@@ -94,6 +96,9 @@ function App() {
         history.push('/');
         setLoggedIn(false);
         localStorage.clear();
+        setCurrentUser({});
+        setErrorsMessage('');
+        setSavedMovies([]);
       })
       .catch((err) => {
         console.log(err);
@@ -144,7 +149,9 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+        <Header
+          loggedIn={loggedIn}
+        />
         <Switch>
           <Route exact path="/">
             <Main/>
@@ -180,6 +187,7 @@ function App() {
               errorsMessage={errorsMessage}
               setErrorsMessage={setErrorsMessage}
             />
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
           </Route>
           <Route path="/signup">
             <Register
@@ -187,6 +195,7 @@ function App() {
               errorsMessage={errorsMessage}
               setErrorsMessage={setErrorsMessage}
             />
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
           </Route>
           <Route path="*">
             <Error />

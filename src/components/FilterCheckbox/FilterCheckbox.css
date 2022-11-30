@@ -27,14 +27,24 @@
   background-image: url(../../images/smalltumb.svg);
   cursor: pointer;
 }
+.checkbox__active {
+  margin: 0 14px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: 36px 20px;
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/smalltumb-active.svg);
+  cursor: pointer;
+}
 
-.checkbox__invisible:checked + .checkbox__visible {
+/* .checkbox__invisible:checked + .checkbox__visible {
   background-image: url(../../images/smalltumb-active.svg);
 }
 
 .checkbox__invisible:disabled + .checkbox__visible {
   background-image: url(../../images/smalltumb.svg);
-}
+} */
 
 .checkbox__text {
   font-family: 'Inter';

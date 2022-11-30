@@ -6,15 +6,21 @@ import MoviesApi from '../../utils/MoviesApi';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 
-
-function Movies({ onButtonMovieClick, savedMovies }) {
+function Movies({ onButtonMovieClick, savedMovies, loggedIn }) {
 
   const [movies, setMovies] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isloading, setIsLoading] = useState(false);
   const width = window.innerWidth;
-  const [pagination, setPagination] = useState(null);
+  const [pagination, setPagination] = useState(() => {
+    if (width < 590) {
+      return 5;
+    } else if (width <= 768) {
+      return 8;
+    } else if (width > 768) {
+      return 12;
+    }});
 
   const handlePagination = useCallback(() => {
     if (width < 590) {
@@ -41,16 +47,20 @@ function Movies({ onButtonMovieClick, savedMovies }) {
       setPagination(pagination + 4);
     }
   }
-  
+
   function handleCheckedbox() {
-    isChecked
-      ? setIsChecked(false)
-      : setIsChecked(true)
-      localStorage.setItem('isChecked', !isChecked);
+    if(isChecked) {
+      localStorage.setItem('isChecked', false);
+      setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
+    } else {
+      localStorage.setItem('isChecked', true);
+      setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
+    }
+    filter(localStorage.getItem('inputMovies'));
   }
 
   function handleGetMovies(inputMovies) {
-    if (movies.length === 0) {
+    if (!movies) {
       setIsLoading(true);
       MoviesApi.getInitialMovies()
       .then((res) => {
@@ -71,30 +81,44 @@ function Movies({ onButtonMovieClick, savedMovies }) {
     handlePagination();
     setErrorMessage('');
     if (filtered) {
-    filtered = filtered.filter((element) => element.nameRU
-      .toLowerCase()
-      .includes(inputMovies.toLowerCase())
-      || element.nameEN
-      .toLowerCase()
-      .includes(inputMovies.toLowerCase())
-    );
-     
-    localStorage.setItem('inputMovies', inputMovies);
-    if(filtered.length === 0) {
-      setErrorMessage('Ничего не найдено.');
-    } 
-    
-    if(isChecked) {
-      filtered = filtered.filter((element) => element.duration <= 40);
+      filtered = filtered.filter((element) => element.nameRU
+        .toLowerCase()
+        .includes(inputMovies.toLowerCase())
+        || element.nameEN
+        .toLowerCase()
+        .includes(inputMovies.toLowerCase())
+      );
+       
+      localStorage.setItem('inputMovies', inputMovies);
+      if(filtered.length === 0) {
+        setErrorMessage('Ничего не найдено.');
+      } 
+      
+      if(JSON.parse(localStorage.getItem('isChecked'))) {
+        filtered = filtered.filter((element) => element.duration <= 40);
+      }
+      
+      setMovies(filtered);
+      localStorage.setItem('saveMovies', JSON.stringify(filtered));
     }
-    
-    setMovies(filtered);}
-  }, [handlePagination, isChecked]);
+  }, [handlePagination]);
   
   useEffect(() => {
-      setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
-      filter(localStorage.getItem('inputMovies'));
-    }, [filter, isChecked]);
+      setMovies(JSON.parse(localStorage.getItem('saveMovies')));
+    }, []);
+
+  useEffect(() => {
+    JSON.parse(localStorage.getItem('isChecked'))
+    && setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
+    }, []);
+
+    useEffect(() => {
+      if(!loggedIn) {
+        setMovies([]);
+        setIsChecked(false);
+        setErrorMessage('');
+      }
+    },[loggedIn])
 
   const moviesPagination = handleMoviesPagination();
   function handleMoviesPagination() {
@@ -119,7 +143,7 @@ function Movies({ onButtonMovieClick, savedMovies }) {
           isloading={isloading}
           errorMessage={errorMessage}
           onButtonPaginationClick={handleClickPagination}
-          pagination={movies}
+          pagination={movies === null ? [] : movies}
           onButtonMovieClick={onButtonMovieClick}
           iconActiveLikeMovie="active"
         />

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import HeaderMovies from './HeaderMovies';
 import HeaderMobile from '../HeaderMobile/HeaderMobile';
 
-function Header() {
+function Header({ loggedIn }) {
   
   const { pathname } = useLocation();
   const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -34,17 +34,30 @@ function Header() {
     }>
       <Switch>
         <Route exact path="/">
-          <Link className="header__link-logo" to="/">
-            <img className="header__logo" src={logoHeader} alt="Логотип шапки"/>
-          </Link>
-        <div className="header__nav header__nav_rigth">
-          <Link className="header__link" to="/signup">
-            Регистрация
-          </Link>
-          <Link className="header__link header__link_login" to="/signin">
-            Войти
-          </Link>
-        </div>
+          {loggedIn
+            ? <>
+              <HeaderMovies
+                onMobileMenuOpen={handleMobileOpenMenu}
+              />
+              <HeaderMobile
+                isMenuOpen={isMobileMenu}
+                onMobileMenuClose={handleMobileCloseMenu}
+              />
+            </>
+            : <>
+              <Link className="header__link-logo" to="/">
+                <img className="header__logo" src={logoHeader} alt="Логотип шапки" />
+              </Link>
+              <div className="header__nav header__nav_rigth">
+                <Link className="header__link" to="/signup">
+                  Регистрация
+                </Link>
+                <Link className="header__link header__link_login" to="/signin">
+                  Войти
+                </Link>
+              </div>
+            </>
+          }
         </Route>
         <Route path="/movies">
           <HeaderMovies

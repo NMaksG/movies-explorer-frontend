@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 
-function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
+function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie, loggedIn }) {
 
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -14,9 +14,7 @@ function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
   const [inputSavedMovies, setInputSavedMovies] = useState('');
 
   function handleCheckedbox() {
-    isChecked
-      ? setIsChecked(false)
-      : setIsChecked(true)
+    setIsChecked(!isChecked);
   }
 
   function handleGetMovies(inputMovies) {
@@ -53,6 +51,16 @@ function SavedMovies({ savedMovies, pageSavedMovies, onDelMovie }) {
       setMySavedMovies(savedMovies);
       filter(inputSavedMovies);
     }, [filter, inputSavedMovies, savedMovies, isChecked]);
+
+    useEffect(() => {
+      if(!loggedIn) {
+        setMySavedMovies([]);
+        setMyFilterSavedMovies([]);
+        setInputSavedMovies('');
+        setIsChecked(false);
+        setErrorMessage('');
+      }
+    },[loggedIn])
 
   return (
     <>

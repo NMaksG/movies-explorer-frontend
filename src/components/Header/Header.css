@@ -145,7 +145,7 @@
   color: #fff;
   font-size: 14px;
   line-height: 1.14;
-  background: #202020;
+  background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
 }

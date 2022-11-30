@@ -9,7 +9,9 @@ function FilterCheckbox({ name, onCheckedboxClick, onChecked }) {
           value={onChecked || false}
           onChange={onCheckedboxClick}
         />
-        <span className="checkbox__visible"></span>
+        {!onChecked
+        ? <span className="checkbox__visible"></span>
+        : <span className="checkbox__active"></span>}
         <span className="checkbox__text">Короткометражки</span>
       </label> 
   );
