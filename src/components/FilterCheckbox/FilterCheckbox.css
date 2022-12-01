@@ -1,0 +1,83 @@
+.checkbox {
+  margin-left: 29px;
+  max-width: 176px;
+  width: 100%;
+  display: flex;
+}
+
+.checkbox-mobile {
+  display: none;
+}
+
+.checkbox__invisible {
+  position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.checkbox__visible {
+  margin: 0 14px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: 36px 20px;
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/smalltumb.svg);
+  cursor: pointer;
+}
+.checkbox__active {
+  margin: 0 14px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: 36px 20px;
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/smalltumb-active.svg);
+  cursor: pointer;
+}
+
+/* .checkbox__invisible:checked + .checkbox__visible {
+  background-image: url(../../images/smalltumb-active.svg);
+}
+
+.checkbox__invisible:disabled + .checkbox__visible {
+  background-image: url(../../images/smalltumb.svg);
+} */
+
+.checkbox__text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+@media screen and (max-width: 1060px) {
+  .checkbox {
+    margin-left: 19px;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .checkbox {
+    display: none;    
+  }
+  
+  .checkbox-mobile {
+    display: block;
+    margin: 46px auto 0;
+    min-width: 150px;
+  }
+
+  
+  .checkbox__visible {
+    margin-left: 0;
+  }
+  
+  .checkbox__text {
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}

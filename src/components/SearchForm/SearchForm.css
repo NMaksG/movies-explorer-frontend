@@ -1,0 +1,126 @@
+.search {
+  margin: 0 auto;
+  width: 100%;
+  min-height: 222px;
+  padding: 70px 0 10px;
+  box-sizing: border-box;
+}
+
+.search__container {
+  margin: 0 70px;
+  padding-bottom: 70px;
+  border-bottom: #424242 1px solid;
+}
+
+.search__container_form {
+  padding-left: 25px;
+  padding-right: 30px;
+  width: 100%;
+  height: 72px;
+  background: #222;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.search__form {
+  width: 82%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-right: #505050 1px solid;
+}
+
+.search__img {
+  width: 22px;
+  height: 22px;
+  margin-right: 16px;
+}
+
+.search__input {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #8B8B8B;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.search__button {
+  margin: 0 19px;
+  padding: 0;
+  max-width: 58.65px;
+  width: 100%;
+  height: 34px;
+  color: #fff;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.64;
+  text-align: center;
+  background: #4285F4;
+  border: none;
+  border-radius: 48px;
+  cursor: pointer;
+}
+
+.search__button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 1060px) {
+  .search {
+    min-height: 272px;
+    padding: 80px 0 10px;
+  }
+  
+  .search__container {
+    margin: 0 30px;
+    padding-bottom: 110px;
+  }
+  
+  .search__container_form {
+    padding-left: 19px;
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .search__container {
+    margin: 0 10px;
+    padding-bottom: 45px;
+  }
+  
+  .search__container_form {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+  
+  .search__form {
+    width: 100%;
+    border-right: none;
+  }
+  
+  .search__img {
+    display: none;
+  }
+  
+  .search__input {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .search__button {
+    margin-right: 0;
+  }
+}
